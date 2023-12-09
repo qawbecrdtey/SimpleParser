@@ -18,15 +18,15 @@ inductive Operator
 | mul
 | div
 
-instance : Inhabited Operator :=
-  ⟨Operator.none⟩
+instance : Inhabited Operator := ⟨Operator.none⟩
 
 def charToOperator (c : Char) : Operator :=
-  if c = '+' then Operator.add
-  else if c = '-' then Operator.sub
-  else if c = '*' then Operator.mul
-  else if c = '/' then Operator.div
-  else panic! "Wrong operator selected."
+  match c with
+  | '+' => .add
+  | '-' => .sub
+  | '*' => .mul
+  | '/' => .div
+  | _   => panic! s!"Wrong operator {c} selected."
 
 inductive ExpressionTree
 | expression : Operator → ExpressionTree → ExpressionTree → ExpressionTree
